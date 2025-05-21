@@ -1,0 +1,4 @@
+sto standardizzando le fetch. mi mancano da fare list group e logout.
+
+dopodichè serve inserire la pagina di caricamento ad ogni richiesta. ho fatto la pagina e preparato
+il contesto. bisogna provarlo nella fetch standard

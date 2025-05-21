@@ -1,0 +1,61 @@
+.cont{
+    padding-top: 1rem;
+    width: 50%;
+    
+    margin:auto;
+    text-align: center;
+}
+.title{
+    font-size: 2rem;
+    margin-right: 2rem;
+}
+.button {
+    font-size: 3rem;
+    padding: 1rem;
+    &:hover{
+        color: grey;
+        cursor: pointer;
+    }
+}  
+
+ul{
+
+    text-align: left;
+
+    .elementList{
+        border: 1px solid black;
+        margin: 1rem;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        padding-right: 1rem;
+        input{
+            width: 70%;
+        }
+        .contFont{
+            display: flex;
+            gap: 1rem;
+            & i{
+                font-size: 1.5rem;
+                color: blue;
+                &:hover{
+                    color: red;
+                    cursor: pointer;
+                }
+            }
+            
+        }
+    }
+}
+
+
+@media screen and (max-width:686px){
+    .cont{
+        width: 95%;
+    }
+    
+    .inputList{
+        width: auto;
+    }
+    
+}
