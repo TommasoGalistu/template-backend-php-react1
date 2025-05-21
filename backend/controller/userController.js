@@ -2,7 +2,6 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const User = require('../model/userModel');
 const jwt = require('jsonwebtoken');
-const Todo = require('../model/toDoModel')
 
 const TIME_TO_REPEAT = 15
 
