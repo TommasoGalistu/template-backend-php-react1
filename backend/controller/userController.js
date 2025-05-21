@@ -7,7 +7,7 @@ const Todo = require('../model/toDoModel')
 const TIME_TO_REPEAT = 15
 
 const userController = {
-    create: async (req, res) =>{
+    register: async (req, res) =>{
         try{
             const existingUser = await User.findOne({email: req.body.email})
 
@@ -81,7 +81,7 @@ const userController = {
 
         
     },
-    check: async (req, res) =>{
+    checkToken: async (req, res) =>{
         try{
             const token = req.cookies.token; 
             const decoded = jwt.verify(token, process.env.JWT_SECRET); 
