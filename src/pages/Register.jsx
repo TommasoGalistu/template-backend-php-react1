@@ -6,6 +6,7 @@ import { checkDataForm } from '../utils/checkData';
 import ErrorTextForm from '../pages/ErrorTextForm'
 import { useState } from 'react';
 import useFetchWithLoading from '../utils/fetchRequest';
+import { validator } from '../utils/validatorSchema';
 
 
 function Register() {
@@ -14,15 +15,19 @@ function Register() {
         type: null,
         res: ''
     })
+    const [error, setError] = useState({})
     const fetchData = useFetchWithLoading()
     function validateForm(event){
         event.preventDefault()
+        setError({})
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries())
-        
-        if(checkDataForm(data)){
-            register(data)
+        const error = validator.validate(data)
+        if(error){
+            setError(error)
+            return
         }
+        register(data)
     }
 
     async function register(dataObj){
@@ -79,15 +84,17 @@ function Register() {
                             <Form.Label>Email address</Form.Label>
                             <Form.Control onChange={clearErro} type="email" placeholder="Enter email" name='email' required/>
                         </Form.Group>
-                    
+                        {error.email && <span className='errorText'>{error.email}</span>}
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" name='password' required/>
                         </Form.Group>
+                        {error.password && <span className='errorText'>{error.password}</span>}
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Conferma Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" placeholder="Password" name='confirm_password' />
                         </Form.Group>
+                        {error.confirm_password && <span className='errorText'>{error.confirm_password}</span>}
                         <ErrorTextForm typeText={response.type}>{response.res}</ErrorTextForm>
                         <Button variant="primary" type='submit'>
                             Submit

@@ -6,6 +6,7 @@ import ErrorTextForm from '../pages/ErrorTextForm'
 import { useState } from 'react';
 import { checkDataForm } from '../utils/checkData';
 import useFetchWithLoading from '../utils/fetchRequest';
+import { validatorLogin } from '../utils/validatorSchema';
 
 function Login(){
     const navigate = useNavigate()
@@ -14,14 +15,19 @@ function Login(){
             res: ''
         })
     const fetchData = useFetchWithLoading();
+    const [error, setError] = useState({})
 
     function validateForm(event){
         event.preventDefault()
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries())
-        if(checkDataForm(data)){
-            login(data)
+        const error = validatorLogin.login(data)
+         if(error){
+            setError(error)
+            return
         }
+
+        login(data)
     }
 
     async function login(dataObj){
@@ -75,11 +81,13 @@ function Login(){
                             <Form.Control type="email" placeholder="Enter email" name='email'/>
                             
                         </Form.Group>
+                        {error.email && <span className='errorText'>{error.email}</span>}
                     
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" name='password'/>
                         </Form.Group>
+                        {error.password && <span className='errorText'>{error.password}</span>}
                         <ErrorTextForm typeText={response.type}>{response.res}</ErrorTextForm>
                         <Button variant="primary" type="submit">
                             Submit
